@@ -1,6 +1,4 @@
-# לב ישראל — Generative Engine Optimization Map
-
-> A מדיה ותוכן דיגיטלי business.
+# Business — Generative Engine Optimization Map
 
 ---
 
@@ -36,17 +34,7 @@ Information about WCAG compliance and accessibility features.
 
 # Business Context (for LLM understanding)
 
-## About לב ישראל
-לב ישראל is a business in the מדיה ותוכן דיגיטלי industry.
-
-## Target Audience
-- יוצרי תוכן דיגיטלי
-- סוכנויות שיווק דיגיטלי
-- מחלקות תקשורת ארגונית
-
-## Industry
-מדיה ותוכן דיגיטלי
-
+## About Business
 ---
 
 # Additional Resources
