@@ -1,43 +1,55 @@
-# Business — Generative Engine Optimization Map
+# לב ישראל — Generative Engine Optimization Map
+
+> A מדיה ותוכן דיגיטלי business.
 
 ---
 
 ## Pages
 
 ### בית
-https://example.com
+https://lev-israel.zappy5.app
 
 ### אודות
-https://example.com/about
+https://lev-israel.zappy5.app/about
 
 ### עבודות
-https://example.com/work
+https://lev-israel.zappy5.app/work
 
 ### צור קשר
-https://example.com/contact
+https://lev-israel.zappy5.app/contact
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://lev-israel.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://lev-israel.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://lev-israel.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
 
 # Business Context (for LLM understanding)
 
-## About Business
+## About לב ישראל
+לב ישראל is a business in the מדיה ותוכן דיגיטלי industry.
+
+## Target Audience
+- יוצרי תוכן דיגיטלי
+- סוכנויות שיווק דיגיטלי
+- מחלקות תקשורת ארגונית
+
+## Industry
+מדיה ותוכן דיגיטלי
+
 ---
 
 # Additional Resources
 
-- **Sitemap**: https://example.com/sitemap.xml
-- **Robots.txt**: https://example.com/robots.txt
+- **Sitemap**: https://lev-israel.zappy5.app/sitemap.xml
+- **Robots.txt**: https://lev-israel.zappy5.app/robots.txt
