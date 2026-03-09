@@ -1,47 +1,59 @@
-# Business — Generative Engine Optimization Map
+# ry-productions — Generative Engine Optimization Map
+
+> A מדיה ותוכן דיגיטלי business.
 
 ---
 
 ## Pages
 
 ### בית
-https://example.com
+https://ry-productions.zappy5.app
 
 ### אודות
-https://example.com/about
+https://ry-productions.zappy5.app/about
 
 ### עבודות
-https://example.com/work
+https://ry-productions.zappy5.app/work
 
 ### צור קשר
-https://example.com/contact
+https://ry-productions.zappy5.app/contact
 
 ### גלריית סרטונים
-https://example.com/videos
+https://ry-productions.zappy5.app/videos
 ry-productions - גלריית סרטונים
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://ry-productions.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://ry-productions.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://ry-productions.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
 
 # Business Context (for LLM understanding)
 
-## About Business
+## About ry-productions
+ry-productions is a business in the מדיה ותוכן דיגיטלי industry.
+
+## Target Audience
+- יוצרי תוכן דיגיטלי
+- סוכנויות שיווק דיגיטלי
+- מחלקות תקשורת ארגונית
+
+## Industry
+מדיה ותוכן דיגיטלי
+
 ---
 
 # Additional Resources
 
-- **Sitemap**: https://example.com/sitemap.xml
-- **Robots.txt**: https://example.com/robots.txt
+- **Sitemap**: https://ry-productions.zappy5.app/sitemap.xml
+- **Robots.txt**: https://ry-productions.zappy5.app/robots.txt
