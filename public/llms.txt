@@ -1,59 +1,51 @@
-# ry-productions — Generative Engine Optimization Map
-
-> A מדיה ותוכן דיגיטלי business.
+# Business — Generative Engine Optimization Map
 
 ---
 
 ## Pages
 
 ### בית
-https://ry-productions.zappy5.app
+https://ry-productions.co.il
 
 ### אודות
-https://ry-productions.zappy5.app/about
+https://ry-productions.co.il/about
 
 ### עבודות
-https://ry-productions.zappy5.app/work
+https://ry-productions.co.il/work
 
 ### צור קשר
-https://ry-productions.zappy5.app/contact
+https://ry-productions.co.il/contact
 
 ### גלריית סרטונים
-https://ry-productions.zappy5.app/videos
+https://ry-productions.co.il/videos
 ry-productions - גלריית סרטונים
+
+### שידורים חיים
+https://ry-productions.co.il/live
+ry-productions - שידורים חיים
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://ry-productions.zappy5.app/privacy
+https://ry-productions.co.il/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://ry-productions.zappy5.app/terms
+https://ry-productions.co.il/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://ry-productions.zappy5.app/accessibility
+https://ry-productions.co.il/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
 
 # Business Context (for LLM understanding)
 
-## About ry-productions
-ry-productions is a business in the מדיה ותוכן דיגיטלי industry.
-
-## Target Audience
-- יוצרי תוכן דיגיטלי
-- סוכנויות שיווק דיגיטלי
-- מחלקות תקשורת ארגונית
-
-## Industry
-מדיה ותוכן דיגיטלי
-
+## About Business
 ---
 
 # Additional Resources
 
-- **Sitemap**: https://ry-productions.zappy5.app/sitemap.xml
-- **Robots.txt**: https://ry-productions.zappy5.app/robots.txt
+- **Sitemap**: https://ry-productions.co.il/sitemap.xml
+- **Robots.txt**: https://ry-productions.co.il/robots.txt
