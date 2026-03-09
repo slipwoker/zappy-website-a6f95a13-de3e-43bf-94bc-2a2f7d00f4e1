@@ -16,6 +16,10 @@ https://example.com/work
 ### צור קשר
 https://example.com/contact
 
+### גלריית סרטונים
+https://example.com/videos
+ry-productions - גלריית סרטונים
+
 ## Legal & Policy
 
 ### Privacy Policy

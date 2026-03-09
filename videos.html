@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>גלריית סרטונים</title>
+    <meta name="description" content="ry-productions - גלריית סרטונים">
+    <meta name="keywords" content="">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'a6f95a13-de3e-43bf-94bc-2a2f7d00f4e1',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="גלריית סרטונים">
+    <meta property="og:description" content="ry-productions - גלריית סרטונים">
+    <meta property="og:image" content="assets/ry-productions-section-page-intro-videos-page-intro-image-1-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="גלריית סרטונים">
+    <meta property="og:locale" content="he_IL">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="גלריית סרטונים">
+    <meta name="twitter:description" content="ry-productions - גלריית סרטונים">
+    <meta name="twitter:image" content="assets/ry-productions-section-page-intro-videos-page-intro-image-1-og.jpg">
+    <meta name="twitter:image:alt" content="גלריית סרטונים"><style id="zappy-ai-page-styles">.videos-page-intro-section {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  padding: 140px 24px 0;
+  position: relative;
+  direction: rtl;
+}
+
+.videos-page-intro-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.videos-page-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.videos-page-intro-content {
+  text-align: right;
+}
+
+.videos-page-intro-content h1 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin: 0 0 24px 0;
+  letter-spacing: -0.02em;
+}
+
+.videos-page-intro-content p {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-dark);
+  margin: 0 0 20px 0;
+  max-width: 58ch;
+}
+
+.videos-page-intro-kpi {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.videos-page-intro-kpi-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.videos-page-intro-kpi-number {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--primary);
+}
+
+.videos-page-intro-kpi-label {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.videos-page-intro-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border-light);
+}
+
+.videos-page-intro-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.videos-page-intro-image-card {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.12);
+}
+
+.videos-page-intro-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.videos-page-intro-separator {
+  width: 100%;
+  height: 1px;
+  background: var(--border-light);
+  margin-top: 64px;
+}
+
+@media (min-width: 768px) {
+  .videos-page-intro-section {
+    padding: 140px 64px 0;
+  }
+
+  .videos-page-intro-grid {
+    grid-template-columns: 65% 35%;
+    gap: 64px;
+  }
+
+  .videos-page-intro-content h1 {
+    font-size: 48px;
+  }
+
+  .videos-page-intro-kpi {
+    gap: 32px;
+  }
+
+  .videos-page-intro-separator {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 767px) {
+  .videos-page-intro-section {
+    padding-top: 100px;
+  }
+
+  .videos-page-intro-content h1 {
+    font-size: 36px;
+  }
+
+  .videos-page-intro-kpi {
+    justify-content: space-between;
+  }
+
+  .videos-page-intro-kpi-item {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .videos-page-intro-divider {
+    display: none;
+  }
+
+  .videos-page-intro-separator {
+    margin-top: 48px;
+  }
+}
+
+.videos-gallery-section {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  padding: 72px 16px;
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+}
+
+.videos-gallery-section .videos-gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.videos-gallery-section .videos-gallery-header {
+  text-align: center;
+  margin-bottom: 48px;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.videos-gallery-section .videos-gallery-header h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+
+.videos-gallery-section .videos-gallery-header p {
+  color: var(--text-dark);
+  line-height: 1.7;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.videos-gallery-section .videos-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 64px;
+}
+
+.videos-gallery-section .videos-gallery-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.videos-gallery-section .videos-gallery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(17,24,39,0.12);
+}
+
+.videos-gallery-section .video-preview-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+.videos-gallery-section .video-preview-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.videos-gallery-section .video-play-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  color: var(--secondary);
+  pointer-events: none;
+  opacity: 0.9;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.videos-gallery-section .videos-gallery-card:hover .video-play-indicator {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.videos-gallery-section .video-play-indicator svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.videos-gallery-section .video-card-content {
+  padding: 18px 20px;
+}
+
+.videos-gallery-section .video-card-content h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.videos-gallery-section .video-card-content > p {
+  color: var(--text-dark);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  text-align: right;
+}
+
+.videos-gallery-section .video-meta-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-light);
+  margin: 14px 0;
+}
+
+.videos-gallery-section .video-production-details {
+  margin: 0;
+  text-align: right;
+}
+
+.videos-gallery-section .video-production-details small {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.videos-gallery-section .videos-gallery-footer-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-light);
+  margin-top: 56px;
+}
+
+@media (max-width: 1024px) {
+  .videos-gallery-section .videos-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .videos-gallery-section {
+    padding: 56px 16px;
+  }
+
+  .videos-gallery-section .videos-gallery-header {
+    margin-bottom: 32px;
+  }
+
+  .videos-gallery-section .videos-gallery-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .videos-gallery-section .videos-gallery-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .videos-gallery-section .video-card-content {
+    padding: 16px 18px;
+  }
+
+  .videos-gallery-section .video-card-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .videos-gallery-section .videos-gallery-footer-divider {
+    margin-top: 48px;
+  }
+}
+
+.videos-capabilities-section {
+  position: relative;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  padding: 72px 16px 128px;
+  overflow: visible;
+  direction: rtl;
+}
+
+.videos-capabilities-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.videos-capabilities-header {
+  text-align: right;
+  margin-bottom: 56px;
+  max-width: 720px;
+  margin-inline-start: 0;
+}
+
+.videos-capabilities-header h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-light);
+  margin: 0 0 16px 0;
+}
+
+.videos-capabilities-header p {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.videos-capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.videos-capabilities-card {
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: right;
+  transition: border-color 0.3s ease;
+}
+
+.videos-capabilities-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.videos-capabilities-card h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-light);
+  margin: 0 0 16px 0;
+}
+
+.videos-capabilities-card p {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.videos-capabilities-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--border-dark);
+  z-index: 5;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .videos-capabilities-section {
+    padding: 56px 16px 72px;
+  }
+
+  .videos-capabilities-header {
+    margin-bottom: 40px;
+  }
+
+  .videos-capabilities-header h2 {
+    font-size: 28px;
+  }
+
+  .videos-capabilities-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .videos-capabilities-card {
+    padding: 20px;
+  }
+
+  .videos-capabilities-card h3 {
+    font-size: 20px;
+  }
+}
+
+.videos-cta-section {
+  position: relative;
+  background: #FFFFFF;
+  padding: 0 16px 96px;
+  overflow: visible;
+}
+
+.videos-cta-section .videos-cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.videos-cta-section .videos-cta-card {
+  background: #FAF7F1;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.06);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+
+.videos-cta-section .videos-cta-content h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin: 0 0 16px 0;
+  text-align: right;
+}
+
+.videos-cta-section .videos-cta-content p {
+  color: var(--text-dark);
+  line-height: 1.7;
+  margin: 0;
+  text-align: right;
+  max-width: 600px;
+}
+
+.videos-cta-section .videos-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.videos-cta-section .videos-cta-btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 4px;
+  padding: 12px 22px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+}
+
+.videos-cta-section .videos-cta-btn-primary {
+  background: #F97316;
+  color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.14);
+}
+
+.videos-cta-section .videos-cta-btn-primary:hover {
+  background: #EA580C;
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.18);
+  transform: translateY(-1px);
+}
+
+.videos-cta-section .videos-cta-btn-secondary {
+  background: #FFFFFF;
+  color: #1D4ED8;
+  border: 1px solid #1D4ED8;
+  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.10);
+}
+
+.videos-cta-section .videos-cta-btn-secondary:hover {
+  background: #F0F9FF;
+  border-color: #1E40AF;
+  color: #1E40AF;
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.14);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .videos-cta-section {
+    padding: 0 16px 72px;
+  }
+
+  .videos-cta-section .videos-cta-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 20px;
+  }
+
+  .videos-cta-section .videos-cta-content h2 {
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  .videos-cta-section .videos-cta-actions {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .videos-cta-section .videos-cta-btn {
+    width: 100%;
+  }
+}</style>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      #mic-access-tool-general-button, .mic-access-tool-general-button,
+      #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+      ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+      #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+        display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+  
+  <button class="phone-header-btn" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+  
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/logo.webp" alt="לב ישראל" class="logo">
+      </a>
+    </div>
+    
+    <ul class="nav-menu" id="navMenu"><li><a href="/" data-i18n="nav-home">בית</a></li><li><a href="/about">אודות</a></li><li><a href="/work">עבודות</a></li><li><a href="/videos" class="nav-link">סרטונים</a></li></ul>
+    
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+  
+  <main class="blog-page ai-generated-page"><section class="videos-page-intro-section" data-layout-spec="גלריית סרטונים-page-intro">
+  <div class="videos-page-intro-container">
+    <div class="videos-page-intro-grid">
+      <div class="videos-page-intro-content">
+        <h1>הסיפורים שלכם<br>מקבלים חיים</h1>
+        <p>אנחנו מאמינים שכל פרויקט מספר סיפור ייחודי. בין אם מדובר בסרטון תדמית, קמפיין שיווקי או תוכן דיגיטלי יצירתי – אנחנו כאן כדי להפוך את החזון שלכם למציאות מרהיבה. עם ניסיון רב בתחום המדיה הדיגיטלית, אנחנו מביאים לכל פרויקט תשומת לב לפרטים, יצירתיות ומקצועיות ללא פשרות.</p>
+        <div class="videos-page-intro-kpi">
+          <div class="videos-page-intro-kpi-item">
+            <div class="videos-page-intro-kpi-number">200+</div>
+            <div class="videos-page-intro-kpi-label">פרויקטים שהושלמו</div>
+          </div>
+          <div class="videos-page-intro-divider"></div>
+          <div class="videos-page-intro-kpi-item">
+            <div class="videos-page-intro-kpi-number">95%</div>
+            <div class="videos-page-intro-kpi-label">שביעות רצון לקוחות</div>
+          </div>
+          <div class="videos-page-intro-divider"></div>
+          <div class="videos-page-intro-kpi-item">
+            <div class="videos-page-intro-kpi-number">5+</div>
+            <div class="videos-page-intro-kpi-label">שנות ניסיון</div>
+          </div>
+        </div>
+      </div>
+      <div class="videos-page-intro-visual">
+        <div class="videos-page-intro-image-card">
+          <img data-context="Professional video production setup showing a modern camera rig filming a creative scene, with professional lighting equipment and a digital monitor displaying vibrant footage. The scene should convey high-end media production quality, creativity, and technical expertise in a bright, clean studio environment." width="480" height="600" src="/assets/ry-productions-section-page-intro-videos-page-intro-image-1.webp" alt="אולפן הפקת וידאו מקצועי עם ציוד צילום מתקדם" data-zappy-editable-image="true">
+        </div>
+      </div>
+    </div>
+    <div class="videos-page-intro-separator"></div>
+  </div>
+</section>
+
+<section class="videos-gallery-section" data-layout-spec="גלריית סרטונים-gallery">
+  <div class="videos-gallery-container">
+    <div class="videos-gallery-header">
+      <h2>גלריית הפקות וידאו</h2>
+      <p>מבחר עבודות מובילות שלנו בתחום הפקת תוכן דיגיטלי ווידאו מקצועי. כל פרויקט משקף את המחויבות שלנו לאיכות חזון יצירתי ומקצועיות ללא פשרות.</p>
+    </div>
+
+    <div class="videos-gallery-grid">
+      <article class="videos-gallery-card">
+        <div class="video-preview-wrapper">
+          <img data-context="Professional video production thumbnail for a digital media company - cinematic shot with professional lighting, camera equipment visible, modern studio setting, high-end production quality" width="600" height="338" src="/assets/ry-productions-section-gallery-videos-gallery-image-1.webp" alt="תצוגה מקדימה של הפקת וידאו מקצועית" data-zappy-editable-image="true">
+          <div class="video-play-indicator" aria-hidden="true" data-no-icon-edit="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+              <polygon points="26,20 26,44 42,32" fill="currentColor"></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="video-card-content">
+          <h3>הפקת תדמית תאגידית</h3>
+          <p>סרטון תדמית מקיף המציג את ערכי החברה והשירותים המובילים שלה. צילום בסטנדרטים קולנועיים עם עריכה דינמית ומוזיקה מקורית.</p>
+          <div class="video-meta-divider"></div>
+          <p class="video-production-details"><small>אורך: 3:24 דקות • פורמט: 4K • סגנון: קולנועי</small></p>
+        </div>
+      </article>
+
+      <article class="videos-gallery-card">
+        <div class="video-preview-wrapper">
+          <img data-context="Dynamic social media video content creation - vibrant colors, modern editing style, influencer or product showcase, energetic composition for digital media company" width="600" height="338" src="/assets/ry-productions-section-gallery-videos-gallery-image-2.webp" alt="תצוגה מקדימה של תוכן דיגיטלי לרשתות חברתיות" data-zappy-editable-image="true">
+          <div class="video-play-indicator" aria-hidden="true" data-no-icon-edit="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+              <polygon points="26,20 26,44 42,32" fill="currentColor"></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="video-card-content">
+          <h3>קמפיין דיגיטלי לרשתות חברתיות</h3>
+          <p>סדרת סרטונים קצרים ואטרקטיביים המותאמים לפלטפורמות שונות. עיצוב גרפי מתקדם ואנימציות שמושכות את העין ומניעות לפעולה.</p>
+          <div class="video-meta-divider"></div>
+          <p class="video-production-details"><small>אורך: 0:45 שניות • פורמט: 1080p • סגנון: דינמי</small></p>
+        </div>
+      </article>
+
+      <article class="videos-gallery-card">
+        <div class="video-preview-wrapper">
+          <img data-context="Professional event coverage and documentation - conference or corporate event setting, multiple camera angles, professional videography equipment, behind-the-scenes production" width="600" height="338" src="/assets/ry-productions-section-gallery-videos-gallery-image-3.webp" alt="תצוגה מקדימה של סיקור אירועים מקצועי" data-zappy-editable-image="true">
+          <div class="video-play-indicator" aria-hidden="true" data-no-icon-edit="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+              <polygon points="26,20 26,44 42,32" fill="currentColor"></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="video-card-content">
+          <h3>סיקור אירועים ותיעוד</h3>
+          <p>תיעוד מקצועי של כנס עסקי רב-משתתפים. צילום רב-מצלמתי עם כיסוי מלא של הרצאות, פאנלים ורגעי שיא. עריכה מהירה ואיכותית.</p>
+          <div class="video-meta-divider"></div>
+          <p class="video-production-details"><small>אורך: 8:12 דקות • פורמט: 4K • סגנון: תיעודי</small></p>
+        </div>
+      </article>
+    </div>
+
+    <div class="videos-gallery-footer-divider"></div>
+  </div>
+</section>
+
+<section class="videos-capabilities-section" data-layout-spec="גלריית סרטונים-capabilities">
+  <div class="videos-capabilities-container">
+    <div class="videos-capabilities-header">
+      <h2>מה אנחנו מביאים לשולחן</h2>
+      <p>כל פרויקט שאנחנו מקבלים עובר תהליך מדויק של תכנון, צילום ועריכה מקצועית. אנחנו משלבים ציוד מתקדם עם חשיבה יצירתית כדי להביא תוצאות שמדברות בעד עצמן.</p>
+    </div>
+    <div class="videos-capabilities-grid">
+      <div class="videos-capabilities-card">
+        <h3>צילום ועריכה מתקדמים</h3>
+        <p>עבודה עם ציוד קולנועי מקצועי, עריכה ב-Premiere Pro ו-DaVinci Resolve, גריידינג צבע מדויק ותיקון פריימים ברזולוציה עד 4K. כל סרטון עובר תהליך עריכה רב-שלבי להבטחת איכות מקסימלית.</p>
+      </div>
+      <div class="videos-capabilities-card">
+        <h3>תכנון סיפור ותסריט</h3>
+        <p>פיתוח קונסטרוקציה נרטיבית ברורה, כתיבת תסריטים מותאמים לקהל היעד, סטוריבורד מפורט וליווי מלא מהרעיון ועד למסך. אנחנו דואגים שכל סרטון יספר סיפור משכנע ומעניין.</p>
+      </div>
+      <div class="videos-capabilities-card">
+        <h3>הפקה מלאה ולוגיסטיקה</h3>
+        <p>ניהול צוות צילום, תיאום לוקיישנים, הפקת שחקנים ודוברים, ליווי מלא ביום הצילום והתאמה לכל תקציב ולוח זמנים. אנחנו מטפלים בכל הפרטים הקטנים כדי שהתהליך יהיה חלק וללא מתח.</p>
+      </div>
+      <div class="videos-capabilities-card">
+        <h3>עיצוב גרפי ואנימציה</h3>
+        <p>יצירת אלמנטים גרפיים מותאמים, אנימציית לוגו ותווים, אפקטים ויזואליים ב-After Effects, טקסטים מעוצבים ומוזיקה מקורית. כל פרט ויזואלי מתוכנן כדי להעצים את המסר ולחזק את הזהות המותגית.</p>
+      </div>
+    </div>
+  </div>
+  <div class="videos-capabilities-divider"></div>
+</section>
+
+<section class="videos-cta-section" data-layout-spec="גלריית סרטונים-cta">
+  <div class="videos-cta-container">
+    <div class="videos-cta-card">
+      <div class="videos-cta-content">
+        <h2>מוכנים להתחיל את הפרויקט הבא שלכם?</h2>
+        <p>בואו ניצור יחד תוכן דיגיטלי שמספר את הסיפור שלכם בצורה הכי משכנעת. נשמח לשמוע על הרעיונות שלכם ולהפוך אותם למציאות ויזואלית מרהיבה.</p>
+      </div>
+      <div class="videos-cta-actions">
+        <a href="/contact" class="videos-cta-btn videos-cta-btn-primary">צרו קשר עכשיו</a>
+        <a href="/contact" class="videos-cta-btn videos-cta-btn-secondary">בואו נדבר</a>
+      </div>
+    </div>
+  </div>
+</section></main>
+  
+  <footer class="site-footer"><div class="footer-container"><div class="footer-grid"><div class="footer-section footer-brand"><img src="/assets/logo.webp" alt="לב ישראל" class="logo"><p class="footer-tagline">יוצרים תוכן דיגיטלי שמחבר ומעורר השראה</p></div><div class="footer-section footer-links"><h3 class="footer-title">קישורים מהירים</h3><ul class="footer-nav"><li><a href="/about">אודות</a></li><li><a href="/work">עבודות</a></li><li><a href="/contact">צור קשר</a></li></ul></div><div class="footer-section footer-contact"><h3 class="footer-title">צור קשר</h3><ul class="contact-list"><li><i class="fas fa-envelope"></i><a href="mailto:reuven210@gmail.com">reuven210@gmail.com</a></li><li><i class="fas fa-phone"></i><a href="tel:0537754254">0537754254</a></li><li><a href="/"><i class="fas fa-map-marker-alt"></i><span>אחד העם 14, ראשון לציון, ישראל</span></a></li></ul></div><div class="footer-section footer-social"><h3 class="footer-title">עקבו אחרינו</h3><div class="social-links"><a href="#" aria-label="Facebook" style="display:none !important;"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Instagram" style="display:none !important;"><i class="fab fa-instagram"></i></a><a href="https://wa.me/972537754254" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div></div><div class="footer-bottom"><div class="footer-legal"><a href="/privacy">מדיניות פרטיות</a><span class="separator">|</span><a href="/terms">תנאי שימוש</a><span class="separator">|</span><a href="/accessibility">נגישות</a></div><div class="footer-copyright"><p>© 2026 לב ישראל. כל הזכויות שמורות.</p></div><div class="footer-attribution"><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></footer>
+  
+  <a href="https://wa.me/972537754254" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+</body>
+</html>
