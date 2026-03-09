@@ -5,29 +5,29 @@
 ## Pages
 
 ### בית
-https://lev-israel.zappy5.app
+https://example.com
 
 ### אודות
-https://lev-israel.zappy5.app/about
+https://example.com/about
 
 ### עבודות
-https://lev-israel.zappy5.app/work
+https://example.com/work
 
 ### צור קשר
-https://lev-israel.zappy5.app/contact
+https://example.com/contact
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://lev-israel.zappy5.app/privacy
+https://example.com/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://lev-israel.zappy5.app/terms
+https://example.com/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://lev-israel.zappy5.app/accessibility
+https://example.com/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -39,5 +39,5 @@ Information about WCAG compliance and accessibility features.
 
 # Additional Resources
 
-- **Sitemap**: https://lev-israel.zappy5.app/sitemap.xml
-- **Robots.txt**: https://lev-israel.zappy5.app/robots.txt
+- **Sitemap**: https://example.com/sitemap.xml
+- **Robots.txt**: https://example.com/robots.txt
