@@ -24,9 +24,6 @@ ry-productions - גלריית סרטונים
 https://ry-productions.co.il/live
 ry-productions - שידורים חיים
 
-### Page
-https://ry-productions.co.il/live-broadcasting
-
 ## Legal & Policy
 
 ### Privacy Policy
