@@ -1,4 +1,6 @@
-# Business — Generative Engine Optimization Map
+# ry-productions — Generative Engine Optimization Map
+
+> A מדיה ותוכן דיגיטלי business.
 
 ---
 
@@ -27,6 +29,9 @@ ry-productions - שידורים חיים
 ### Page
 https://ry-productions.co.il/copy
 
+### Page
+https://ry-productions.co.il/new-page-1777935895523
+
 ## Legal & Policy
 
 ### Privacy Policy
@@ -43,12 +48,44 @@ Information about WCAG compliance and accessibility features.
 
 ---
 
-# Business Context (for LLM understanding)
+## How to Contact Us
 
-## About Business
+- Email: reuven210@gmail.com
+- Phone: 0537754254
+- Phone (tel): tel:0537754254
+- Address: אחד העם 14, ראשון לציון, ראשון לציון
+
+### Contact form
+- URL: https://ry-productions.co.il/contact
+- Endpoint: https://ry-productions.co.il/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel, required)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox)
+
 ---
 
-# Additional Resources
+# Business Context (for LLM understanding)
 
-- **Sitemap**: https://ry-productions.co.il/sitemap.xml
-- **Robots.txt**: https://ry-productions.co.il/robots.txt
+## About ry-productions
+ry-productions is a business in the מדיה ותוכן דיגיטלי industry.
+
+## Target Audience
+- יוצרי תוכן דיגיטלי
+- סוכנויות שיווק דיגיטלי
+- מחלקות תקשורת ארגונית
+
+## Industry
+מדיה ותוכן דיגיטלי
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://ry-productions.co.il/sitemap.xml
+- Robots: https://ry-productions.co.il/robots.txt
+- Flattened page text (for LLMs): https://ry-productions.co.il/llms-full.txt
