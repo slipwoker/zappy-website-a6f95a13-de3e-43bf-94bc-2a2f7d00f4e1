@@ -29,9 +29,6 @@ ry-productions - שידורים חיים
 ### Page
 https://ry-productions.co.il/copy
 
-### דוגמאות
-https://ry-productions.co.il/samples
-
 ## Legal & Policy
 
 ### Privacy Policy
