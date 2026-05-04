@@ -29,8 +29,8 @@ ry-productions - שידורים חיים
 ### Page
 https://ry-productions.co.il/copy
 
-### Page
-https://ry-productions.co.il/new-page-1777935895523
+### דוגמאות
+https://ry-productions.co.il/samples
 
 ## Legal & Policy
 
@@ -65,7 +65,7 @@ Information about WCAG compliance and accessibility features.
   - `email` (email, required)
   - `phone` (tel, required)
   - `message` (textarea, required)
-  - `privacy_consent` (checkbox)
+  - `privacy_consent` (checkbox, required)
 
 ---
 

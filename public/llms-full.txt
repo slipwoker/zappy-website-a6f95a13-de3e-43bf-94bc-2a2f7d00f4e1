@@ -62,7 +62,7 @@ ry-productions
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -618,7 +618,7 @@ ry-productions
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -959,7 +959,7 @@ ry-productions
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -1395,7 +1395,7 @@ ry-productions
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -1658,7 +1658,7 @@ ry-productions
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -1853,7 +1853,7 @@ ry-productions
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -2057,7 +2057,7 @@ ry-productions
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -2312,7 +2312,7 @@ Description: ry-productions - גלריית סרטונים
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -2600,7 +2600,7 @@ Description: ry-productions - שידורים חיים
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -2745,7 +2745,7 @@ URL: https://ry-productions.co.il/copy
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
@@ -3047,11 +3047,11 @@ Zoom + YouTube · 3 שעות · אנשי שיווק ויזמים
 
 ---
 
-## https://ry-productions.co.il/new-page-1777935895523
+## דוגמאות
 
-URL: https://ry-productions.co.il/new-page-1777935895523
+URL: https://ry-productions.co.il/samples
 
-New Page
+דוגמאות
 
 
 
@@ -3105,7 +3105,7 @@ New Page
 - סרטונים
 - שידורים
 - שידורים חיים (copy)
-- New Page
+- דוגמאות
 
 
 
