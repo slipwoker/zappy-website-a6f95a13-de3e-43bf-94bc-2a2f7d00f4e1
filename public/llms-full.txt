@@ -2617,7 +2617,8 @@ Description: ry-productions - שידורים חיים
 
 
 
-## &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; שידור חי משפחת אוריאן
+##                     שידור חי משפחת אוריאן
+
 
 
 
@@ -2643,8 +2644,6 @@ Description: ry-productions - שידורים חיים
 
 
 בואו נדבר
-
-
 
 תוך 24 שעות נחזור אליכם עם הצעה מותאמת אישית
 
