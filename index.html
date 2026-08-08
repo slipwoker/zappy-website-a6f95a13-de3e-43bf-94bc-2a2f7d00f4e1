@@ -618,6 +618,196 @@
     
     <!-- Mickidum Accessibility Toolbar -->
     
+
+<style data-zappy-section-v2-css="true">
+/* V2 Regenerated Section CSS */
+.index-hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  padding: 120px 24px 80px;
+}
+
+.index-hero-section__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.index-hero-section__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.index-hero-section__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: linear-gradient(180deg, rgba(11, 18, 32, 0.32) 0%, rgba(11, 18, 32, 0.48) 60%, rgba(11, 18, 32, 0.72) 100%);
+  pointer-events: none;
+}
+
+.index-hero-section__overlay {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.index-hero-section__card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 16px;
+  padding: 48px 44px;
+  max-width: 680px;
+  width: 100%;
+  box-shadow: 0 18px 44px rgba(17, 24, 39, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.index-hero-section__label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.index-hero-section__headline {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  max-width: none;
+}
+
+.index-hero-section__subtitle {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--secondary);
+  margin-bottom: 36px;
+  max-width: none;
+}
+
+.index-hero-section__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.index-hero-section__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  min-width: 160px;
+}
+
+.index-hero-section__btn--primary {
+  background: var(--primary);
+  color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.14);
+}
+
+.index-hero-section__btn--primary:hover {
+  background: #1a43c4;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.18);
+  transform: translateY(-2px);
+}
+
+.index-hero-section__btn--secondary {
+  background: #FFFFFF;
+  color: var(--text-dark);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.10);
+}
+
+.index-hero-section__btn--secondary:hover {
+  background: #F9FAFB;
+  border-color: #D1D5DB;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.12);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .index-hero-section {
+    padding: 100px 16px 60px;
+    min-height: 100vh;
+  }
+
+  .index-hero-section__card {
+    padding: 32px 20px;
+    border-radius: 12px;
+    max-width: 100%;
+  }
+
+  .index-hero-section__headline {
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .index-hero-section__subtitle {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+
+  .index-hero-section__actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .index-hero-section__btn {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .index-hero-section__label {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+}
+/* ZAPPY_POSTGEN_GUARD_HERO_FONT_CAP:index-hero */
+.hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 48px !important; line-height: 1.2 !important; }
+@media (max-width: 1024px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 36px !important; }
+}
+@media (max-width: 768px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 28px !important; }
+}
+
+</style>
     <style id="zappy-critical-above-fold-css">
 html{box-sizing:border-box;-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:inherit}body{margin:0;min-width:320px;overflow-x:clip}img,svg,video{max-width:100%;height:auto}main{display:block}.container{width:min(100% - 32px,1200px);margin-inline:auto}.navbar,nav.navbar,header .navbar,header[role="banner"]{position:relative;z-index:1000;width:100%}.nav-container,.navbar .container{display:flex;align-items:center;justify-content:space-between;min-height:64px}.logo,.logo-link img{display:block;width:35px;height:35px;object-fit:contain}.nav-menu,#navMenu{list-style:none;margin:0;padding:0}.navbar a,.nav-menu a,#navMenu a,.navbar .nav-links a{color:inherit;text-decoration:none}.navbar .sub-menu,.nav-menu .sub-menu,#navMenu .sub-menu{display:none}.fa,.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands{display:inline-block;min-width:1em;text-align:center}html:not(#zappy-noop)[data-zappy-site-type="ecommerce"] .phone-header-btn,html:not(#zappy-noop) .navbar:has(.nav-ecommerce-icons)>.phone-header-btn{display:none!important;visibility:hidden!important;width:0!important;height:0!important;pointer-events:none!important}.zappy-preview-empty-store-cta{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important}.zappy-catalog-menu{background:var(--surface-color,var(--surface,linear-gradient(135deg,#f8f9fa 0%,#fff 100%)));border-bottom:1px solid var(--border-color,#e5e7eb);padding:0;position:sticky;top:0;z-index:90}.zappy-catalog-menu[dir=rtl],.zappy-catalog-menu.rtl{direction:rtl}.zappy-catalog-menu[dir=ltr],.zappy-catalog-menu.ltr{direction:ltr}.catalog-menu-container{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:10px 24px;overflow:visible}.catalog-menu-categories,.catalog-menu-list{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:0;padding:0;list-style:none}.catalog-menu-item{display:inline-flex;align-items:center;padding:8px 16px;font-size:14px;font-weight:500;color:var(--text-color,var(--text,#374151));text-decoration:none;border-radius:20px;white-space:nowrap}.catalog-menu-all{background:var(--primary-color,var(--primary,#111));color:var(--text-light,#fff)!important}.catalog-menu-parent{position:relative;display:inline-flex;align-items:center}.catalog-menu-trigger{display:inline-flex;align-items:center;gap:6px}.catalog-menu-chevron{flex-shrink:0}.catalog-menu-parent>.sub-menu{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}.hero-section,.index-hero-section,section[class*="hero"]{position:relative;overflow:hidden}.hero-section,.index-hero-section{min-height:560px}section[data-hero-type*="fullscreen"]{min-height:100vh}.hero-bg-wrapper,.hero-bg-image,section[class*="hero"] [class*="hero-bg"]{position:absolute;inset:0;width:100%;height:100%}.hero-bg-wrapper img,.hero-bg-image img,section[class*="hero"] [data-hero-bg],section[class*="hero"] img[data-hero-background="true"]{width:100%!important;height:100%!important;object-fit:cover!important;display:block}.hero-content,section[class*="hero"] .container{position:relative;z-index:2}@media(max-width:768px){:root{--header-height:72px;--total-header-height:72px;--zappy-mobile-menu-top:72px}html[data-zappy-site-type="ecommerce"] body{padding-top:var(--total-header-height,72px)}html[data-zappy-site-type="ecommerce"] body>nav.navbar,html[data-zappy-site-type="ecommerce"] body>.navbar:not(.zappy-catalog-menu){position:fixed!important;top:0;left:0;right:0;z-index:100000;width:100%;margin-bottom:0}.zappy-catalog-menu{position:fixed;top:var(--header-height,72px);left:0;right:0;z-index:99999}.nav-container,.navbar .container{min-height:60px}.nav-menu,#navMenu{max-width:100vw;overflow-x:hidden}.hero-section,.index-hero-section,section[class*="hero"],section[data-hero-type*="fullscreen"]{min-height:100svh}.hero-bg-wrapper,.hero-bg-image,.hero-scrim{min-height:100svh}}
 :root{--nav-bg:rgba(250, 250, 247, 0.98)}.navbar{background-color:rgba(250, 250, 247, 0.98)!important}
@@ -670,7 +860,7 @@ body:has(.zappy-announcement-bar) .navbar:not(.zappy-catalog-menu):not(.mobile-s
 </style>
     <link rel="stylesheet" href="/styles.css">
     <script>window.ZAPPY_WEBSITE_ID = "a6f95a13-de3e-43bf-94bc-2a2f7d00f4e1"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
-    <link rel="preload" as="image" href="/assets/site-home-hero-bg-1786232370239-dh8tid.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="/assets/ry-productions-image-section-hero-index-hero-image-1.webp" fetchpriority="high">
 
     <style id="zappy-dropdown-submenu-styles">
       /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
@@ -791,26 +981,21 @@ body:has(.zappy-announcement-bar) .navbar:not(.zappy-catalog-menu):not(.mobile-s
 </nav>
   
   <main>
-    <section class="home-hero-section" data-layout-spec="בית-hero" data-hero-type="fullscreen-card" id="zappy-section-0">
-  <!-- Background Image Layer -->
-  <div class="home-hero-bg-wrapper">
-    <img loading="eager" fetchpriority="high" data-hero-bg="true" data-placeholder="home-hero-bg" data-context="Professional Israeli newsroom or modern content creation studio: clean desk with high-end camera equipment, professional lighting setup, computer monitors displaying editorial content, warm natural lighting from large windows, organized and sophisticated workspace that conveys trustworthy journalism and digital media production" width="1920" height="1080" src="/assets/site-home-hero-bg-1786232370239-dh8tid.webp" alt="אולפן יצירת תוכן דיגיטלי מקצועי" class="home-hero-bg-image" data-element-type="image" data-element-id="img-1771188324457-svsgi9951" data-hero-background="true" style="object-position: 50% 50%; position: absolute; object-fit: cover; max-width: none; max-height: none; margin: 0; inset: 0; width: 100%; height: 100%" data-zappy-object-position="50% 50%" data-zappy-zoom="1" decoding="async">
+    <section class="index-hero-section" data-layout-spec="בית-hero" data-hero-type="fullscreen-card" id="zappy-section-0">
+  <div class="index-hero-section__bg">
+    <img loading="eager" fetchpriority="high" data-hero-bg="true" data-context="Professional digital media production workspace with cinematic lighting, multiple monitors showing video editing timeline and color grading, professional camera equipment on desk, modern creative studio environment, warm accent lighting against dark tech setup, depth of field focusing on glowing screens" width="1200" height="600" src="/assets/ry-productions-image-section-hero-index-hero-image-1.webp" alt="סביבת עבודה מקצועית להפקת מדיה דיגיטלית" class="index-hero-section__img" style="position: absolute; object-fit: cover; object-position: 50% 50%; max-width: none; max-height: none; margin: 0; inset: 0; width: 100%; height: 100%" decoding="async">
+    <div class="index-hero-section__scrim"></div>
   </div>
-
-  <!-- Scrim Overlay for Text Legibility -->
-  <div class="home-hero-scrim" aria-hidden="true" data-zappy-gradient-scrim="true"></div>
-
-  <!-- Content Overlay Group -->
-  <h1 class="home-hero-headline" style="outline: none; color: rgb(249, 250, 251) !important;" data-element-id="move-1771188380907-4xqkdtgf">ראובן הפקות</h1><div class="home-hero-content-container">
-    
-  </div>
-
-  <!-- Bottom Diagonal Divider -->
-  <div class="home-hero-divider-wrapper">
-    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,20 L1200,50 L1200,80 Z" fill="#f8f9fa"></path>
-      <line x1="0" y1="20" x2="1200" y2="50" stroke="var(--border-light)" stroke-width="1" vector-effect="non-scaling-stroke"></line>
-    </svg>
+  <div class="index-hero-section__overlay">
+    <div class="index-hero-section__card">
+      <p class="index-hero-section__label">סטודיו להפקות מדיה</p>
+      <h1 class="index-hero-section__headline">הופכים רעיונות לתוכן דיגיטלי שמשאיר חותם</h1>
+      <h3 class="index-hero-section__subtitle">הפקות וידאו, תוכן שיווקי ועריכת פוסט מקצועית — מהקונספט ועד למסך</h3>
+      <div class="index-hero-section__actions">
+        
+        <a href="/portfolio" class="index-hero-section__btn index-hero-section__btn--secondary">צפייה בתיק עבודות</a>
+      </div>
+    </div>
   </div>
 </section>
 
