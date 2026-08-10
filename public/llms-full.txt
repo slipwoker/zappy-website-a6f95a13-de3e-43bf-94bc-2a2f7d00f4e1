@@ -2622,9 +2622,9 @@ Description: ry-productions - שידורים חיים
 
 ##
 
-# &nbsp; &nbsp; &nbsp; &nbsp;גמר קט רגל&nbsp;
+#        גמר קט רגל
 
-## &nbsp; &nbsp; &nbsp; שידור חי&nbsp;
+##       שידור חי
 
 
 
@@ -2633,10 +2633,6 @@ Description: ry-productions - שידורים חיים
 
 
 ##
-
-# &nbsp; &nbsp; &nbsp; &nbsp;גמר קט רגל&nbsp;
-
-## &nbsp; &nbsp; &nbsp; שידור חי&nbsp;
 
 
 
